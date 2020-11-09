@@ -1,5 +1,7 @@
 resource "null_resource" "sg_depends_on" {
-  triggers = [var.sg_depends_on]
+  triggers = {
+    value = "${length(var.sg_depends_on)}"
+  }
 }
 
 resource "azurerm_network_security_rule" "buburtimor-sg-rule" {
