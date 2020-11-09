@@ -1,5 +1,5 @@
 resource "null_resource" "sg_depends_on" {
-  triggers = var.sg_depends_on
+  triggers = [var.sg_depends_on]
 }
 
 resource "azurerm_network_security_rule" "buburtimor-sg-rule" {
@@ -14,5 +14,5 @@ resource "azurerm_network_security_rule" "buburtimor-sg-rule" {
     destination_address_prefix    = var.sg-rule-destination_address_prefix
     resource_group_name           = var.resource_group_name
     network_security_group_name   = var.sg-name
-    depends_on                    = ["null_resource.sg_depends_on"]
+    depends_on                    = [null_resource.sg_depends_on]
 }
