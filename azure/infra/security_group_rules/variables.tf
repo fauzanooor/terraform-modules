@@ -21,3 +21,7 @@ variable "sg-rule-destination_address_prefix" {
 }
 variable "resource_group_name" {}
 variable "sg-name" {}
+variable "sg_depends_on" {
+    type = any
+    default = null
+}

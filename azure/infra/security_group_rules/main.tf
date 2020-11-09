@@ -10,4 +10,5 @@ resource "azurerm_network_security_rule" "buburtimor-sg-rule" {
     destination_address_prefix  = var.sg-rule-destination_address_prefix
     resource_group_name           = var.resource_group_name
     network_security_group_name   = var.sg-name
+    depends_on                    = var.sg_depends_on
 }
