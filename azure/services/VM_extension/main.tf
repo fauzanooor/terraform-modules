@@ -17,6 +17,12 @@ resource "azurerm_network_interface" "buburtimor-nic" {
     }
 }
 
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [azurerm_virtual_machine.buburtimor-vm]
+
+  destroy_duration = "30s"
+}
+
 resource "azurerm_network_interface_security_group_association" "buburtimor-nic-sg" {
     count                        = length(azurerm_network_interface.buburtimor-nic.*.id)
     network_interface_id         = element(azurerm_network_interface.buburtimor-nic.*.id, count.index)
@@ -69,7 +75,7 @@ resource "azurerm_virtual_machine_extension" "buburimor-vm-extension" {
     publisher            = "Microsoft.Azure.Extensions"
     type                 = "CustomScript"
     type_handler_version = "2.0"
-    depends_on           = [element(azurerm_virtual_machine.buburtimor-vm.*.id, count.index)]
+    depends_on           = [azurerm_virtual_machine.buburtimor-vm]
 
     protected_settings = <<PROT
         {
