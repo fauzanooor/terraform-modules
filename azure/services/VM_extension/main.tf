@@ -69,6 +69,7 @@ resource "azurerm_virtual_machine_extension" "buburimor-vm-extension" {
     publisher            = "Microsoft.Azure.Extensions"
     type                 = "CustomScript"
     type_handler_version = "2.0"
+    depends_on           = [element(azurerm_virtual_machine.buburtimor-vm.*.id, count.index)]
 
     protected_settings = <<PROT
         {
